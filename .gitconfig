@@ -1,0 +1,14 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+name = Cory Mainwaring
+email = Mainwaring_Cory@bah.com
+[alias]
+	pr = pull --rebase
+  lr = log --left-right --graph --cherry-pick --oneline
+
+[core]
+editor = vimr --wait --nvim
+excludesfile = /Users/corymainwaring/dotfiles/.gitignore
+[pull]
+	rebase = true

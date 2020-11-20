@@ -1,11 +1,11 @@
 if has("unix")
   let s:uname = system("uname")
-  let g:python_host_prog = '/usr/bin/python'
+  let g:python_host_prog = '/usr/bin/python3'
+  let g:python3_host_prog = '/usr/bin/python3'
 endif
 
-call plug#begin()
+call plug#begin("~/.vim/plugged")
 Plug 'romainl/flattened'
-Plug 'fatih/vim-go'
 Plug 'nsf/gocode'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-airline/vim-airline'
@@ -16,6 +16,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'w0rp/ale'
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'yorokobi/vim-splunk'
+Plug 'hashivim/vim-terraform'
+Plug 'zchee/nvim-go', { 'do': 'make'}
 call plug#end()
 
 "JSX
@@ -49,12 +52,18 @@ let g:ale_sign_warning = '-'
 let g:ale_java_javac_classpath = '.'
 let g:ale_python_pylint_options = '-rcfile ~/dotfiles/pylint.rc'
 
+let g:ale_fixers = {
+  \   'python': [
+  \       'black',
+  \   ],
+  \}
+
 let mapleader = " "
 set nu
 set rnu
-set tabstop=4
+set tabstop=2
 set expandtab
-set shiftwidth=4
+set shiftwidth=2
 set textwidth=100
 set colorcolumn=100
 set background=dark
@@ -90,9 +99,6 @@ let &undodir=EnsureDirectory(s:vimfiles."/undo")."//"
 let &backupdir=EnsureDirectory(s:vimfiles."/backup")."//"
 let &directory=EnsureDirectory(s:vimfiles."/swap")."//"
 
-
-
-
 nnoremap <Leader><Leader> :nohl<Cr>
 nnoremap <Leader>H <C-w>H
 nnoremap <Leader>J <C-w>J
@@ -116,7 +122,7 @@ function! _render_markdown()
     if expand("%:e") == "md"
         w
         silent !markdown-it % > %:r.html
-        e %:r.html
+        silent !open -a Safari %:r.html
     endif
 endfunction
 
